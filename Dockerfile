@@ -8,3 +8,7 @@ EXPOSE 80
 
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
+
+COPY src/main.py ./
+
+CMD [ "python", "./main.py" ]
