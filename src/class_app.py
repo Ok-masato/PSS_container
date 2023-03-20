@@ -21,9 +21,9 @@ class App:
     def __init__(self, window, window_title, input_dir, diff_dir, out_dir, obj_dir,
                  back_img_dir, obj_db, trace_data, img_num_0, img_num_1, back_flag, captures, camera_0, camera_1):
 
-        self.window = window
-        self.window.title(window_title)
-        self.window2 = window
+        # self.window = window
+        # self.window.title(window_title)
+        # self.window2 = window
 
         self.vcap_0 = cv2.VideoCapture(0)
         self.vcap_1 = cv2.VideoCapture(1)
@@ -54,10 +54,10 @@ class App:
         self.human_exist = [False, False, False, False]
 
         # カメラモジュールの映像を表示するキャンバスを用意する
-        self.canvas_0 = Canvas(self.window, width=1280, height=720)
-        self.canvas_1 = Canvas(self.window, width=1280, height=720)
-        self.canvas_0.grid(columnspan=3, column=0, row=0, sticky=W + E)
-        self.canvas_1.grid(columnspan=3, column=3, row=0, sticky=W + E)
+        # self.canvas_0 = Canvas(self.window, width=1280, height=720)
+        # self.canvas_1 = Canvas(self.window, width=1280, height=720)
+        # self.canvas_0.grid(columnspan=3, column=0, row=0, sticky=W + E)
+        # self.canvas_1.grid(columnspan=3, column=3, row=0, sticky=W + E)
 
         self.img_num_0 = img_num_0
         self.img_num_1 = img_num_1
@@ -72,27 +72,29 @@ class App:
         self.dc_1 = DiffCreate.DiffCreate(input_dir, diff_dir, out_dir, obj_dir, back_img_dir, obj_db, trace_data,
                                          img_num_1, camera_1)
 
-        # 撮影ボタン
-        self.cap_btn = Button(self.window, text="Capture")
-        self.cap_btn.grid(column=0, row=1, padx=10, pady=10)
-        self.cap_btn.configure(command=self.capture)
+        # # 撮影ボタン
+        # self.cap_btn = Button(self.window, text="Capture")
+        # self.cap_btn.grid(column=0, row=1, padx=10, pady=10)
+        # self.cap_btn.configure(command=self.capture)
 
-        self.ref_btn = Button(self.window, text="Reflesh")
-        self.ref_btn.grid(column=1, row=1, padx=10, pady=10)
-        self.ref_btn.configure(command=self.reflesh)
+        # self.ref_btn = Button(self.window, text="Reflesh")
+        # self.ref_btn.grid(column=1, row=1, padx=10, pady=10)
+        # self.ref_btn.configure(command=self.reflesh)
 
-        # 終了ボタン
-        self.close_btn = Button(self.window, text="Close")
-        self.close_btn.grid(column=2, row=1, padx=10, pady=10)
-        self.close_btn.configure(command=self.destructor)
+        # # 終了ボタン
+        # self.close_btn = Button(self.window, text="Close")
+        # self.close_btn.grid(column=2, row=1, padx=10, pady=10)
+        # self.close_btn.configure(command=self.destructor)
 
-        # update()関数を15ミリ秒ごとに呼び出し、
-        # キャンバスの映像を更新する
-        self.delay = 15
+        self.capture()
 
-        self.update()
+        while True:
+            # update()関数を15ミリ秒ごとに呼び出し、
+            # キャンバスの映像を更新する
+            self.delay = 15
+            self.update()
 
-        self.window.mainloop()
+        # self.window.mainloop()
 
     def check_capture(self):
         if (self.human_exist[0] == True) and (self.human_exist[1] == False) and (self.human_exist[2] == False) \
@@ -152,15 +154,15 @@ class App:
         self.photo_0 = ImageTk.PhotoImage(image=Image.fromarray(out_img_0))
         self.photo_1 = ImageTk.PhotoImage(image=Image.fromarray(out_img_1))
 
-        self.canvas_0.create_image(0, 0, image=self.photo_0, anchor=NW)
-        self.canvas_1.create_image(3, 3, image=self.photo_1, anchor=NW)
+        # self.canvas_0.create_image(0, 0, image=self.photo_0, anchor=NW)
+        # self.canvas_1.create_image(3, 3, image=self.photo_1, anchor=NW)
 
-        self.window.after(self.delay, self.update)
+        # self.window.after(self.delay, self.update)
 
-    # リフレッシュボタンの処理
-    def reflesh(self):
-        self.ref_btn['state'] = DISABLED
-        RefleshFolder.reflesh()
+    # # リフレッシュボタンの処理
+    # def reflesh(self):
+    #     self.ref_btn['state'] = DISABLED
+    #     RefleshFolder.reflesh()
 
     # Closeボタンの処理
     def destructor(self):
@@ -186,7 +188,7 @@ class App:
                 self.img_num_1 = self.img_num_1 + 1
                 self.dc_0.plus_num()
                 self.dc_1.plus_num()
-                self.ref_btn['state'] = DISABLED
+                # self.ref_btn['state'] = DISABLED
                 print("Success capture(back).")
 
             # add
