@@ -27,6 +27,11 @@ class App:
 
         self.vcap_0 = cv2.VideoCapture(0)
         self.vcap_1 = cv2.VideoCapture(1)
+        """
+        IPカメラ用
+        self.vcap_0 = cv2.VideoCapture("rtsp://admin:123456@106.138.82.13:554/live/main")
+        self.vcap_1 = cv2.VideoCapture("rtsp://admin:123456@106.138.82.13:554/live/main")
+        """
 
         # カメラの焦点操作。実験環境にあわせて調整してください。
         self.vcap_0.set(cv2.CAP_PROP_FOCUS, 10)
