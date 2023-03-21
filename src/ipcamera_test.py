@@ -11,8 +11,8 @@ CAMERA_URL2 = "rtsp://admin:123456@114.151.100.188:555/live/jpeg/"
 # cam_url_2 = "rtsp://admin:123456@192.168.11.17/live/main/"
 
 # カメラ1とカメラ2のキャプチャーを開始する
-cap_1 = cv2.VideoCapture(cam_url_1)
-cap_2 = cv2.VideoCapture(cam_url_2)
+cap_1 = cv2.VideoCapture(CAMERA_URL1)
+cap_2 = cv2.VideoCapture(CAMERA_URL2)
 # cv2.CAP_DSHOW
 
 # フォーマット・解像度・FPSの設定
