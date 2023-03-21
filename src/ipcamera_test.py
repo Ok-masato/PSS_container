@@ -1,4 +1,54 @@
-import av
+import cv2
+import time
+
+# カメラの設定
+camera1_url = "rtsp://admin:123456@114.151.100.188:554/live/main/"
+camera2_url = "rtsp://admin:123456@114.151.100.188:555/live/main/"
+
+# カメラに接続
+cap1 = cv2.VideoCapture(camera1_url)
+cap2 = cv2.VideoCapture(camera2_url)
+
+# 画像を保存するフォルダ
+output_folder = "src/imgs/img/"
+
+# 画像の取得間隔（秒）
+interval = 10
+
+# 画像を保存する関数
+def save_image(frame, camera_id, timestamp):
+    filename = output_folder + f"camera{camera_id}_{timestamp}.jpg"
+    print(filename)
+    cv2.imwrite(filename, frame)
+
+# メインループ
+while True:
+    # カメラからフレームを取得
+    ret1, frame1 = cap1.read()
+    ret2, frame2 = cap2.read()
+
+    # 両方のカメラが正常に接続されている場合
+    if ret1 and ret2:
+        print("true")
+        # 現在時刻を取得
+        timestamp = int(time.time())
+
+        # 画像を保存
+        save_image(frame1, 1, timestamp)
+        save_image(frame2, 2, timestamp)
+
+        # 一定時間待機
+        time.sleep(interval)
+
+    # カメラに接続できなかった場合
+    else:
+        print("Failed to connect to one or more cameras.")
+        break
+
+# カメラとの接続を解除
+cap1.release()
+cap2.release()
+"""
 import numpy as np
 import cv2
 
@@ -62,3 +112,4 @@ while True:
 cap_1.release()
 cap_2.release()
 cv2.destroyAllWindows()
+"""

@@ -18,29 +18,22 @@ args = parser.parse_args()
 
 
 class App:
-    def __init__(self, window, window_title, input_dir, diff_dir, out_dir, obj_dir,
+    def __init__(self, window_title, input_dir, diff_dir, out_dir, obj_dir,
                  back_img_dir, obj_db, trace_data, img_num_0, img_num_1, back_flag, captures, camera_0, camera_1):
 
-        # self.window = window
-        # self.window.title(window_title)
-        # self.window2 = window
+        """
+        # self.vcap_0 = cv2.VideoCapture(0)
+        # self.vcap_1 = cv2.VideoCapture(1)
+        """
+        # IPカメラ用
+        self.vcap_0 = cv2.VideoCapture("rtsp://admin:123456@114.151.100.188:554/live/jpeg/")
+        self.vcap_1 = cv2.VideoCapture("rtsp://admin:123456@114.151.100.188:555/live/jpeg/")
 
-        self.vcap_0 = cv2.VideoCapture(0)
-        self.vcap_1 = cv2.VideoCapture(1)
-        """
-        IPカメラ用
-        self.vcap_0 = cv2.VideoCapture("rtsp://admin:123456@106.138.82.13:554/live/main")
-        self.vcap_1 = cv2.VideoCapture("rtsp://admin:123456@106.138.82.13:554/live/main")
-        """
 
         # カメラの焦点操作。実験環境にあわせて調整してください。
         self.vcap_0.set(cv2.CAP_PROP_FOCUS, 10)
         self.vcap_1.set(cv2.CAP_PROP_FOCUS, 10)
 
-        # self.width = self.vcap_0.get(cv2.CAP_PROP_FRAME_WIDTH)
-        # self.height = self.vcap_0.get(cv2.CAP_PROP_FRAME_HEIGHT)
-        # self.width2 = self.vcap_1.get(cv2.CAP_PROP_FRAME_WIDTH)
-        # self.height2 = self.vcap_1.get(cv2.CAP_PROP_FRAME_HEIGHT)
         WIDTH = 1280
         HEIGHT = 720
         self.vcap_0.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'))
@@ -52,12 +45,6 @@ class App:
 
         self.yolo = human_detector.YOLO()
         self.human_exist = [False, False, False, False]
-
-        # カメラモジュールの映像を表示するキャンバスを用意する
-        # self.canvas_0 = Canvas(self.window, width=1280, height=720)
-        # self.canvas_1 = Canvas(self.window, width=1280, height=720)
-        # self.canvas_0.grid(columnspan=3, column=0, row=0, sticky=W + E)
-        # self.canvas_1.grid(columnspan=3, column=3, row=0, sticky=W + E)
 
         self.img_num_0 = img_num_0
         self.img_num_1 = img_num_1
@@ -72,19 +59,6 @@ class App:
         self.dc_1 = DiffCreate.DiffCreate(input_dir, diff_dir, out_dir, obj_dir, back_img_dir, obj_db, trace_data,
                                          img_num_1, camera_1)
 
-        # # 撮影ボタン
-        # self.cap_btn = Button(self.window, text="Capture")
-        # self.cap_btn.grid(column=0, row=1, padx=10, pady=10)
-        # self.cap_btn.configure(command=self.capture)
-
-        # self.ref_btn = Button(self.window, text="Reflesh")
-        # self.ref_btn.grid(column=1, row=1, padx=10, pady=10)
-        # self.ref_btn.configure(command=self.reflesh)
-
-        # # 終了ボタン
-        # self.close_btn = Button(self.window, text="Close")
-        # self.close_btn.grid(column=2, row=1, padx=10, pady=10)
-        # self.close_btn.configure(command=self.destructor)
 
         self.capture()
 
@@ -149,20 +123,6 @@ class App:
 
             print("Success this capture num ({}).".format(self.img_num_0))
 
-        out_img_0 = np.array(r_image_0)
-        out_img_1 = np.array(r_image_1)
-        self.photo_0 = ImageTk.PhotoImage(image=Image.fromarray(out_img_0))
-        self.photo_1 = ImageTk.PhotoImage(image=Image.fromarray(out_img_1))
-
-        # self.canvas_0.create_image(0, 0, image=self.photo_0, anchor=NW)
-        # self.canvas_1.create_image(3, 3, image=self.photo_1, anchor=NW)
-
-        # self.window.after(self.delay, self.update)
-
-    # # リフレッシュボタンの処理
-    # def reflesh(self):
-    #     self.ref_btn['state'] = DISABLED
-    #     RefleshFolder.reflesh()
 
     # Closeボタンの処理
     def destructor(self):

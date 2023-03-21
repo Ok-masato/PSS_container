@@ -61,7 +61,5 @@ captures = []
 # 画像格納用フォルダの用意
 functions.folders(input_dir, diff_dir, out_dir, obj_dir, back_img_dir, obj_db, obj_db_target)
 
-class_app.App(Tk(), "Sahasra Difference Detector ", input_dir, diff_dir, out_dir, obj_dir, back_img_dir, obj_db, trace_data,
+class_app.App("Sahasra Difference Detector ", input_dir, diff_dir, out_dir, obj_dir, back_img_dir, obj_db, trace_data,
     0, 0, back_flag, captures, camera_0, camera_1)
-# class_app.App("Sahasra Difference Detector ", input_dir, diff_dir, out_dir, obj_dir, back_img_dir, obj_db, trace_data,
-#     0, 0, back_flag, captures, camera_0, camera_1)
